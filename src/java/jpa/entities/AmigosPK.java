@@ -10,52 +10,55 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Embeddable
 public class AmigosPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 80)
     @Column(name = "USU_ID_USUARIO")
-    private int usuIdUsuario;
+    private String usuIdUsuario;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private int idUsuario;
+    private String idUsuario;
 
     public AmigosPK() {
     }
 
-    public AmigosPK(int usuIdUsuario, int idUsuario) {
+    public AmigosPK(String usuIdUsuario, String idUsuario) {
         this.usuIdUsuario = usuIdUsuario;
         this.idUsuario = idUsuario;
     }
 
-    public int getUsuIdUsuario() {
+    public String getUsuIdUsuario() {
         return usuIdUsuario;
     }
 
-    public void setUsuIdUsuario(int usuIdUsuario) {
+    public void setUsuIdUsuario(String usuIdUsuario) {
         this.usuIdUsuario = usuIdUsuario;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) usuIdUsuario;
-        hash += (int) idUsuario;
+        hash += (usuIdUsuario != null ? usuIdUsuario.hashCode() : 0);
+        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -66,10 +69,10 @@ public class AmigosPK implements Serializable {
             return false;
         }
         AmigosPK other = (AmigosPK) object;
-        if (this.usuIdUsuario != other.usuIdUsuario) {
+        if ((this.usuIdUsuario == null && other.usuIdUsuario != null) || (this.usuIdUsuario != null && !this.usuIdUsuario.equals(other.usuIdUsuario))) {
             return false;
         }
-        if (this.idUsuario != other.idUsuario) {
+        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
             return false;
         }
         return true;

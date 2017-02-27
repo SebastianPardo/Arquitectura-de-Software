@@ -20,10 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "amigos", catalog = "Red", schema = "")
+@Table(name = "AMIGOS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a")
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Amigos.findByEstatusRelacion", query = "SELECT a FROM Amigos a WHERE a.estatusRelacion = :estatusRelacion")})
 public class Amigos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @EmbeddedId
     protected AmigosPK amigosPK;
     @Basic(optional = false)
@@ -58,7 +58,7 @@ public class Amigos implements Serializable {
         this.estatusRelacion = estatusRelacion;
     }
 
-    public Amigos(int usuIdUsuario, int idUsuario) {
+    public Amigos(String usuIdUsuario, String idUsuario) {
         this.amigosPK = new AmigosPK(usuIdUsuario, idUsuario);
     }
 

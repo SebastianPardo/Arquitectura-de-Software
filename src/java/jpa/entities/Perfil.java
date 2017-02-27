@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "perfil", catalog = "Red", schema = "")
+@Table(name = "PERFIL")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")
@@ -57,7 +57,7 @@ public class Perfil implements Serializable {
     private Date fechaRegistroPerfil;
     @ManyToMany(mappedBy = "perfilCollection")
     private Collection<Usuario> usuarioCollection;
-    @JoinTable(name = "perfil_funcionalidad", joinColumns = {
+    @JoinTable(name = "PERFIL_FUNCIONALIDAD", joinColumns = {
         @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_FUNCIONALIDAD", referencedColumnName = "ID_FUNCIONALIDAD")})
     @ManyToMany

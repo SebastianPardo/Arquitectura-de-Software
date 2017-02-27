@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "interes", catalog = "Red", schema = "")
+@Table(name = "INTERES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Interes.findAll", query = "SELECT i FROM Interes i")
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Interes.findByFechaRegInteres", query = "SELECT i FROM Interes i WHERE i.fechaRegInteres = :fechaRegInteres")})
 public class Interes implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -54,9 +54,9 @@ public class Interes implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegInteres;
     @ManyToMany(mappedBy = "interesCollection")
-    private Collection<Categoria> categoriaCollection;
-    @ManyToMany(mappedBy = "interesCollection")
     private Collection<Usuario> usuarioCollection;
+    @ManyToMany(mappedBy = "interesCollection")
+    private Collection<Categoria> categoriaCollection;
 
     public Interes() {
     }
@@ -96,21 +96,21 @@ public class Interes implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Categoria> getCategoriaCollection() {
-        return categoriaCollection;
-    }
-
-    public void setCategoriaCollection(Collection<Categoria> categoriaCollection) {
-        this.categoriaCollection = categoriaCollection;
-    }
-
-    @XmlTransient
     public Collection<Usuario> getUsuarioCollection() {
         return usuarioCollection;
     }
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Categoria> getCategoriaCollection() {
+        return categoriaCollection;
+    }
+
+    public void setCategoriaCollection(Collection<Categoria> categoriaCollection) {
+        this.categoriaCollection = categoriaCollection;
     }
 
     @Override

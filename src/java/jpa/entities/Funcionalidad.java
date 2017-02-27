@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "funcionalidad", catalog = "Red", schema = "")
+@Table(name = "FUNCIONALIDAD")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Funcionalidad.findAll", query = "SELECT f FROM Funcionalidad f")
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Funcionalidad.findByFechaRegFuncionalidad", query = "SELECT f FROM Funcionalidad f WHERE f.fechaRegFuncionalidad = :fechaRegFuncionalidad")})
 public class Funcionalidad implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     @Basic(optional = false)
     @NotNull

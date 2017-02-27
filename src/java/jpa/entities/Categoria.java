@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "categoria", catalog = "Red", schema = "")
+@Table(name = "CATEGORIA")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c")
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Categoria.findByFechaRegCategoria", query = "SELECT c FROM Categoria c WHERE c.fechaRegCategoria = :fechaRegCategoria")})
 public class Categoria implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -55,7 +55,7 @@ public class Categoria implements Serializable {
     @Column(name = "FECHA_REG_CATEGORIA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegCategoria;
-    @JoinTable(name = "interes_categoria", joinColumns = {
+    @JoinTable(name = "INTERES_CATEGORIA", joinColumns = {
         @JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID_CATEGORIA")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_INTERES", referencedColumnName = "ID_INTERES")})
     @ManyToMany

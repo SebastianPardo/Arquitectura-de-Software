@@ -10,18 +10,21 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "visibilidad_informacion")
+@Table(name = "VISIBILIDAD_INFORMACION")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "VisibilidadInformacion.findAll", query = "SELECT v FROM VisibilidadInformacion v")
@@ -33,12 +36,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "VisibilidadInformacion.findByVisFechaNac", query = "SELECT v FROM VisibilidadInformacion v WHERE v.visFechaNac = :visFechaNac")})
 public class VisibilidadInformacion implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private String idUsuario;
     @Column(name = "VIS_ALIAS")
     private Integer visAlias;
     @Column(name = "VIS_CORREO")
@@ -49,19 +53,22 @@ public class VisibilidadInformacion implements Serializable {
     private Integer visTelefono;
     @Column(name = "VIS_FECHA_NAC")
     private Integer visFechaNac;
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Usuario usuario;
 
     public VisibilidadInformacion() {
     }
 
-    public VisibilidadInformacion(Integer idUsuario) {
+    public VisibilidadInformacion(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Integer getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -103,6 +110,14 @@ public class VisibilidadInformacion implements Serializable {
 
     public void setVisFechaNac(Integer visFechaNac) {
         this.visFechaNac = visFechaNac;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

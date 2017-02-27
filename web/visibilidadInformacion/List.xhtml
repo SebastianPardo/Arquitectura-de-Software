@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVisibilidadInformacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListVisibilidadInformacionEmpty}" rendered="#{visibilidadInformacionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{visibilidadInformacionController.items.rowCount > 0}">
+                    <h:outputText value="#{visibilidadInformacionController.pagination.pageFirstItem + 1}..#{visibilidadInformacionController.pagination.pageLastItem + 1}/#{visibilidadInformacionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{visibilidadInformacionController.previous}" value="#{bundle.Previous} #{visibilidadInformacionController.pagination.pageSize}" rendered="#{visibilidadInformacionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{visibilidadInformacionController.next}" value="#{bundle.Next} #{visibilidadInformacionController.pagination.pageSize}" rendered="#{visibilidadInformacionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{visibilidadInformacionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_idUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_visAlias}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visAlias}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_visCorreo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visCorreo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_visSexo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visSexo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_visTelefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visTelefono}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_visFechaNac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visFechaNac}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisibilidadInformacionTitle_usuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuario}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{visibilidadInformacionController.prepareView}" value="#{bundle.ListVisibilidadInformacionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{visibilidadInformacionController.prepareEdit}" value="#{bundle.ListVisibilidadInformacionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{visibilidadInformacionController.destroy}" value="#{bundle.ListVisibilidadInformacionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{visibilidadInformacionController.prepareCreate}" value="#{bundle.ListVisibilidadInformacionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListVisibilidadInformacionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

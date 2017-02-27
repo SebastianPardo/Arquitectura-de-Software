@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author snrivera
+ * @author arqsoft2017i
  */
 @Entity
-@Table(name = "usuario", catalog = "Red", schema = "")
+@Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -48,12 +49,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private String idUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1024)
@@ -96,18 +98,22 @@ public class Usuario implements Serializable {
     private Date fechaNacimientoUsuario;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Activo")
+    @Column(name = "ACTIVO")
     private boolean activo;
-    @JoinTable(name = "usuario_perfil", joinColumns = {
+    @JoinTable(name = "USUARIO_PERFIL", joinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL")})
     @ManyToMany
     private Collection<Perfil> perfilCollection;
-    @JoinTable(name = "usuario_interes", joinColumns = {
+    @JoinTable(name = "USUARIO_INTERES", joinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_INTERES", referencedColumnName = "ID_INTERES")})
     @ManyToMany
     private Collection<Interes> interesCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Autenticacion autenticacion;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private VisibilidadInformacion visibilidadInformacion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Collection<Amigos> amigosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario1")
@@ -116,11 +122,11 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario) {
+    public Usuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombreUsuario, String apellidoUsuario, String aliasUsuario, String correoUsuario, String sexoUsuario, String telefonoUsuario, Date fechaRegistroUsuario, Date fechaNacimientoUsuario, boolean activo) {
+    public Usuario(String idUsuario, String nombreUsuario, String apellidoUsuario, String aliasUsuario, String correoUsuario, String sexoUsuario, String telefonoUsuario, Date fechaRegistroUsuario, Date fechaNacimientoUsuario, boolean activo) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -133,11 +139,11 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    public Integer getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -229,6 +235,22 @@ public class Usuario implements Serializable {
 
     public void setInteresCollection(Collection<Interes> interesCollection) {
         this.interesCollection = interesCollection;
+    }
+
+    public Autenticacion getAutenticacion() {
+        return autenticacion;
+    }
+
+    public void setAutenticacion(Autenticacion autenticacion) {
+        this.autenticacion = autenticacion;
+    }
+
+    public VisibilidadInformacion getVisibilidadInformacion() {
+        return visibilidadInformacion;
+    }
+
+    public void setVisibilidadInformacion(VisibilidadInformacion visibilidadInformacion) {
+        this.visibilidadInformacion = visibilidadInformacion;
     }
 
     @XmlTransient
