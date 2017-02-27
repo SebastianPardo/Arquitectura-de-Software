@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jpa.entities;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,7 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,13 +35,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "VisibilidadInformacion.findByVisFechaNac", query = "SELECT v FROM VisibilidadInformacion v WHERE v.visFechaNac = :visFechaNac")})
 public class VisibilidadInformacion implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private String idUsuario;
+    private Integer idUsuario;
     @Column(name = "VIS_ALIAS")
     private Integer visAlias;
     @Column(name = "VIS_CORREO")
@@ -60,15 +58,15 @@ public class VisibilidadInformacion implements Serializable {
     public VisibilidadInformacion() {
     }
 
-    public VisibilidadInformacion(String idUsuario) {
+    public VisibilidadInformacion(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -142,7 +140,7 @@ public class VisibilidadInformacion implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.VisibilidadInformacion[ idUsuario=" + idUsuario + " ]";
+        return "DataAccess.Entity.VisibilidadInformacion[ idUsuario=" + idUsuario + " ]";
     }
     
 }

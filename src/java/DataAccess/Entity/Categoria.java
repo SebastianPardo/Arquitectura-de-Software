@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jpa.entities;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Categoria.findByFechaRegCategoria", query = "SELECT c FROM Categoria c WHERE c.fechaRegCategoria = :fechaRegCategoria")})
 public class Categoria implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -129,7 +129,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Categoria[ idCategoria=" + idCategoria + " ]";
+        return "DataAccess.Entity.Categoria[ idCategoria=" + idCategoria + " ]";
     }
     
 }

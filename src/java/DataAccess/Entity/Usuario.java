@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jpa.entities;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -41,21 +41,19 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
     , @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario")
     , @NamedQuery(name = "Usuario.findByAliasUsuario", query = "SELECT u FROM Usuario u WHERE u.aliasUsuario = :aliasUsuario")
-    , @NamedQuery(name = "Usuario.findByCorreoUsuario", query = "SELECT u FROM Usuario u WHERE u.correoUsuario = :correoUsuario")
     , @NamedQuery(name = "Usuario.findBySexoUsuario", query = "SELECT u FROM Usuario u WHERE u.sexoUsuario = :sexoUsuario")
     , @NamedQuery(name = "Usuario.findByTelefonoUsuario", query = "SELECT u FROM Usuario u WHERE u.telefonoUsuario = :telefonoUsuario")
+    , @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")
     , @NamedQuery(name = "Usuario.findByFechaRegistroUsuario", query = "SELECT u FROM Usuario u WHERE u.fechaRegistroUsuario = :fechaRegistroUsuario")
-    , @NamedQuery(name = "Usuario.findByFechaNacimientoUsuario", query = "SELECT u FROM Usuario u WHERE u.fechaNacimientoUsuario = :fechaNacimientoUsuario")
-    , @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
+    , @NamedQuery(name = "Usuario.findByFechaNacimientoUsuario", query = "SELECT u FROM Usuario u WHERE u.fechaNacimientoUsuario = :fechaNacimientoUsuario")})
 public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private String idUsuario;
+    private Integer idUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1024)
@@ -74,11 +72,6 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1024)
-    @Column(name = "CORREO_USUARIO")
-    private String correoUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1024)
     @Column(name = "SEXO_USUARIO")
     private String sexoUsuario;
     @Basic(optional = false)
@@ -86,6 +79,10 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "TELEFONO_USUARIO")
     private String telefonoUsuario;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ACTIVO")
+    private boolean activo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_REGISTRO_USUARIO")
@@ -96,15 +93,6 @@ public class Usuario implements Serializable {
     @Column(name = "FECHA_NACIMIENTO_USUARIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimientoUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ACTIVO")
-    private boolean activo;
-    @JoinTable(name = "USUARIO_PERFIL", joinColumns = {
-        @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL")})
-    @ManyToMany
-    private Collection<Perfil> perfilCollection;
     @JoinTable(name = "USUARIO_INTERES", joinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_INTERES", referencedColumnName = "ID_INTERES")})
@@ -122,28 +110,27 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String idUsuario) {
+    public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(String idUsuario, String nombreUsuario, String apellidoUsuario, String aliasUsuario, String correoUsuario, String sexoUsuario, String telefonoUsuario, Date fechaRegistroUsuario, Date fechaNacimientoUsuario, boolean activo) {
+    public Usuario(Integer idUsuario, String nombreUsuario, String apellidoUsuario, String aliasUsuario, String sexoUsuario, String telefonoUsuario, boolean activo, Date fechaRegistroUsuario, Date fechaNacimientoUsuario) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.aliasUsuario = aliasUsuario;
-        this.correoUsuario = correoUsuario;
         this.sexoUsuario = sexoUsuario;
         this.telefonoUsuario = telefonoUsuario;
+        this.activo = activo;
         this.fechaRegistroUsuario = fechaRegistroUsuario;
         this.fechaNacimientoUsuario = fechaNacimientoUsuario;
-        this.activo = activo;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -171,14 +158,6 @@ public class Usuario implements Serializable {
         this.aliasUsuario = aliasUsuario;
     }
 
-    public String getCorreoUsuario() {
-        return correoUsuario;
-    }
-
-    public void setCorreoUsuario(String correoUsuario) {
-        this.correoUsuario = correoUsuario;
-    }
-
     public String getSexoUsuario() {
         return sexoUsuario;
     }
@@ -195,6 +174,14 @@ public class Usuario implements Serializable {
         this.telefonoUsuario = telefonoUsuario;
     }
 
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
     public Date getFechaRegistroUsuario() {
         return fechaRegistroUsuario;
     }
@@ -209,23 +196,6 @@ public class Usuario implements Serializable {
 
     public void setFechaNacimientoUsuario(Date fechaNacimientoUsuario) {
         this.fechaNacimientoUsuario = fechaNacimientoUsuario;
-    }
-
-    public boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    @XmlTransient
-    public Collection<Perfil> getPerfilCollection() {
-        return perfilCollection;
-    }
-
-    public void setPerfilCollection(Collection<Perfil> perfilCollection) {
-        this.perfilCollection = perfilCollection;
     }
 
     @XmlTransient
@@ -293,7 +263,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "DataAccess.Entity.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jpa.entities;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -29,16 +29,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Autenticacion.findAll", query = "SELECT a FROM Autenticacion a")
     , @NamedQuery(name = "Autenticacion.findByIdUsuario", query = "SELECT a FROM Autenticacion a WHERE a.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Autenticacion.findByCorreo", query = "SELECT a FROM Autenticacion a WHERE a.correo = :correo")
     , @NamedQuery(name = "Autenticacion.findByPass", query = "SELECT a FROM Autenticacion a WHERE a.pass = :pass")})
 public class Autenticacion implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 80)
     @Column(name = "ID_USUARIO")
-    private String idUsuario;
+    private Integer idUsuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1024)
+    @Column(name = "CORREO")
+    private String correo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1024)
@@ -51,21 +56,30 @@ public class Autenticacion implements Serializable {
     public Autenticacion() {
     }
 
-    public Autenticacion(String idUsuario) {
+    public Autenticacion(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Autenticacion(String idUsuario, String pass) {
+    public Autenticacion(Integer idUsuario, String correo, String pass) {
         this.idUsuario = idUsuario;
+        this.correo = correo;
         this.pass = pass;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getPass() {
@@ -106,7 +120,7 @@ public class Autenticacion implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Autenticacion[ idUsuario=" + idUsuario + " ]";
+        return "DataAccess.Entity.Autenticacion[ idUsuario=" + idUsuario + " ]";
     }
     
 }

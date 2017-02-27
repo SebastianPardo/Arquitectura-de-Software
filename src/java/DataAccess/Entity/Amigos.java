@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jpa.entities;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a")
-    , @NamedQuery(name = "Amigos.findByUsuIdUsuario", query = "SELECT a FROM Amigos a WHERE a.amigosPK.usuIdUsuario = :usuIdUsuario")
     , @NamedQuery(name = "Amigos.findByIdUsuario", query = "SELECT a FROM Amigos a WHERE a.amigosPK.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Amigos.findByIdAmigo", query = "SELECT a FROM Amigos a WHERE a.amigosPK.idAmigo = :idAmigo")
     , @NamedQuery(name = "Amigos.findByEstatusRelacion", query = "SELECT a FROM Amigos a WHERE a.estatusRelacion = :estatusRelacion")})
 public class Amigos implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AmigosPK amigosPK;
     @Basic(optional = false)
@@ -42,7 +42,7 @@ public class Amigos implements Serializable {
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;
-    @JoinColumn(name = "USU_ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_AMIGO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario1;
 
@@ -58,8 +58,8 @@ public class Amigos implements Serializable {
         this.estatusRelacion = estatusRelacion;
     }
 
-    public Amigos(String usuIdUsuario, String idUsuario) {
-        this.amigosPK = new AmigosPK(usuIdUsuario, idUsuario);
+    public Amigos(int idUsuario, int idAmigo) {
+        this.amigosPK = new AmigosPK(idUsuario, idAmigo);
     }
 
     public AmigosPK getAmigosPK() {
@@ -116,7 +116,7 @@ public class Amigos implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Amigos[ amigosPK=" + amigosPK + " ]";
+        return "DataAccess.Entity.Amigos[ amigosPK=" + amigosPK + " ]";
     }
     
 }
