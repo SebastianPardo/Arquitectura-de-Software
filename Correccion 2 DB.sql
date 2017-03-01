@@ -18,6 +18,7 @@ drop table if exists VISIBILIDAD_INFORMACION;
 create table AUTENTICACION
 (
    ID_USUARIO           int not null,
+   USERNAME             varchar(1024) not null,
    PASS                 varchar(1024) not null,
    primary key (ID_USUARIO)
 );
