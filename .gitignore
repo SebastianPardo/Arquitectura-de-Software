@@ -1,7 +1,3 @@
 /build/
 /dist/
-<<<<<<< HEAD
 *.properties
-=======
-/nbproject/private/
->>>>>>> master-2

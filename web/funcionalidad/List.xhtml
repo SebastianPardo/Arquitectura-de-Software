@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFuncionalidadTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListFuncionalidadEmpty}" rendered="#{funcionalidadController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{funcionalidadController.items.rowCount > 0}">
+                    <h:outputText value="#{funcionalidadController.pagination.pageFirstItem + 1}..#{funcionalidadController.pagination.pageLastItem + 1}/#{funcionalidadController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{funcionalidadController.previous}" value="#{bundle.Previous} #{funcionalidadController.pagination.pageSize}" rendered="#{funcionalidadController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{funcionalidadController.next}" value="#{bundle.Next} #{funcionalidadController.pagination.pageSize}" rendered="#{funcionalidadController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{funcionalidadController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFuncionalidadTitle_idFuncionalidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFuncionalidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFuncionalidadTitle_descripcionFuncionalidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcionFuncionalidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFuncionalidadTitle_fechaRegFuncionalidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaRegFuncionalidad}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{funcionalidadController.prepareView}" value="#{bundle.ListFuncionalidadViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{funcionalidadController.prepareEdit}" value="#{bundle.ListFuncionalidadEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{funcionalidadController.destroy}" value="#{bundle.ListFuncionalidadDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{funcionalidadController.prepareCreate}" value="#{bundle.ListFuncionalidadCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListFuncionalidadIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

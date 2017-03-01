@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditInteresTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditInteresLabel_idInteres}" for="idInteres" />
+                    <h:inputText id="idInteres" value="#{interesController.selected.idInteres}" title="#{bundle.EditInteresTitle_idInteres}" required="true" requiredMessage="#{bundle.EditInteresRequiredMessage_idInteres}"/>
+                    <h:outputLabel value="#{bundle.EditInteresLabel_descripcionInteres}" for="descripcionInteres" />
+                    <h:inputText id="descripcionInteres" value="#{interesController.selected.descripcionInteres}" title="#{bundle.EditInteresTitle_descripcionInteres}" required="true" requiredMessage="#{bundle.EditInteresRequiredMessage_descripcionInteres}"/>
+                    <h:outputLabel value="#{bundle.EditInteresLabel_fechaRegInteres}" for="fechaRegInteres" />
+                    <h:inputText id="fechaRegInteres" value="#{interesController.selected.fechaRegInteres}" title="#{bundle.EditInteresTitle_fechaRegInteres}" required="true" requiredMessage="#{bundle.EditInteresRequiredMessage_fechaRegInteres}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{interesController.update}" value="#{bundle.EditInteresSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditInteresViewLink}"/>
+                <br />
+                <h:commandLink action="#{interesController.prepareList}" value="#{bundle.EditInteresShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditInteresIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
